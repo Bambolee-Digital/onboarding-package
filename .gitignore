@@ -1,0 +1,33 @@
+# Ignore arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ignore arquivos de log
+*.log
+
+# Ignore diretórios de cache
+cache/
+tmp/
+
+# Ignore dependências do Composer
+/vendor/
+/composer.lock
+
+# Ignore arquivos de configuração do IDE
+.idea/
+/.vscode/
+
+# Ignore arquivos de ambiente
+.env
+.env.local
+.env.*.local
+
+# Ignore arquivos de build
+/build/
+/node_modules/
+
+# Ignore arquivos de teste
+/tests/
+
+# Ignore arquivos de cobertura de código
+/coverage/
