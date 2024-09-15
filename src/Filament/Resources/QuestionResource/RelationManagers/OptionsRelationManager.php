@@ -36,13 +36,13 @@ class OptionsRelationManager extends RelationManager
         return $form->schema([
            Grid::make(1)->schema([
                 TextInput::make('text')
-                    ->label('Texto')
+                    ->label('Text')
                     ->required(),
                 MarkdownEditor::make('description')
-                    ->label('Descrição')
+                    ->label('Description')
                     ->required(false),
                 Select::make('next_question_id')
-                    ->label('Próxima Pergunta')
+                    ->label('Next Question')
                     ->options(Question::all()->pluck('text', 'id'))
                     ->searchable()
                     ->nullable(),
@@ -55,7 +55,7 @@ class OptionsRelationManager extends RelationManager
         return $table
             ->columns([
                 TextColumn::make('text')
-                    ->label('Texto')
+                    ->label('Text')
                     ->getStateUsing(fn ($record) => $record->getTranslation('text', $this->activeLocale))
                     ->sortable()
                     ->searchable(),

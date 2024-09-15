@@ -8,4 +8,5 @@ return [
     'middleware' => ['api', 'auth:api'],
 
     // Configurações adicionais podem ser adicionadas aqui
+    'locales' => ['en', 'es', 'pt'],
 ];

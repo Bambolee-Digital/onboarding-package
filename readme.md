@@ -1,56 +1,55 @@
 # OnboardingPackage
 
-O **OnboardingPackage** é um pacote Laravel que permite criar fluxos de onboarding personalizados para usuários, incluindo perguntas dinâmicas, opções, mensagens condicionais e controle do fluxo com base nas respostas dos usuários. O pacote suporta múltiplos idiomas utilizando o **Spatie Laravel Translatable** e integra-se com o painel administrativo do **FilamentPHP** para gerenciamento fácil.
+**OnboardingPackage** is a Laravel package that allows you to create customized onboarding flows for users, including dynamic questions, options, conditional messages, and flow control based on user responses. The package supports multiple languages using **Spatie Laravel Translatable** and integrates with the **FilamentPHP** admin panel for easy management.
 
-## Sumário
+## Table of Contents
 
-- [Instalação](#instalação)
-- [Configuração](#configuração)
-- [Uso](#uso)
-  - [Gerenciando Perguntas e Opções](#gerenciando-perguntas-e-opções)
-  - [Definindo Mensagens Condicionais](#definindo-mensagens-condicionais)
-  - [Controlando o Fluxo de Perguntas](#controlando-o-fluxo-de-perguntas)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+  - [Managing Questions and Options](#managing-questions-and-options)
+  - [Defining Conditional Messages](#defining-conditional-messages)
+  - [Controlling the Question Flow](#controlling-the-question-flow)
 - [API Endpoints](#api-endpoints)
-  - [Enviar Resposta do Usuário](#enviar-resposta-do-usuário)
-  - [Obter Respostas do Usuário](#obter-respostas-do-usuário)
-- [Exemplos de Uso](#exemplos-de-uso)
-- [Licença](#licença)
-- [Changelog](#changelog)
+  - [Submit User Response](#submit-user-response)
+  - [Get User Responses](#get-user-responses)
+- [Usage Examples](#usage-examples)
+- [License](#license)
 
-## Instalação
+## Installation
 
-Você pode instalar o pacote via Composer:
+You can install the package via Composer:
 
 ```bash
 composer require bamboleedigital/onboarding-package
 ```
 
-Após a instalação, publique os arquivos de migração e configuração:
+After installation, publish the migration and configuration files:
 
 ```bash
 php artisan vendor:publish --provider="BamboleeDigital\OnboardingPackage\Providers\OnboardingServiceProvider" --tag="migrations"
 php artisan vendor:publish --provider="BamboleeDigital\OnboardingPackage\Providers\OnboardingServiceProvider" --tag="config"
 ```
 
-Em seguida, execute as migrações:
+Then, run the migrations:
 
 ```bash
 php artisan migrate
 ```
 
-## Configuração
+## Configuration
 
-### Filament e Spatie Laravel Translatable
+### Filament and Spatie Laravel Translatable
 
-Certifique-se de que o **FilamentPHP** e o **Spatie Laravel Translatable** estão instalados e configurados em seu projeto.
+Make sure that **FilamentPHP** and **Spatie Laravel Translatable** are installed and configured in your project.
 
-Instale o plugin de tradução do Filament:
+Install the Filament translation plugin:
 
 ```bash
 composer require filament/spatie-laravel-translatable-plugin:"^3.2" -W
 ```
 
-Adicione o plugin ao seu painel do Filament:
+Add the plugin to your Filament panel:
 
 ```php
 use Filament\SpatieLaravelTranslatablePlugin;
@@ -61,68 +60,68 @@ public function panel(Panel $panel): Panel
         // ...
         ->plugin(
             SpatieLaravelTranslatablePlugin::make()
-                ->defaultLocales(['en', 'pt']), // Defina os idiomas que deseja suportar
+                ->defaultLocales(['en', 'pt']), // Set the languages you want to support
         );
 }
 ```
 
-### Configuração do Pacote
+### Package Configuration
 
-O arquivo de configuração do pacote permite que você personalize as opções conforme necessário. O arquivo `config/onboarding-package.php` será publicado na raiz da pasta `config` do seu projeto.
+The package configuration file allows you to customize options as needed. The `config/onboarding-package.php` file will be published in the root of your project's `config` folder.
 
-## Uso
+## Usage
 
-### Gerenciando Perguntas e Opções
+### Managing Questions and Options
 
-Acesse o painel administrativo do FilamentPHP e navegue até o menu **Perguntas**.
+Access the FilamentPHP admin panel and navigate to the **Questions** menu.
 
-#### Criar uma Nova Pergunta
+#### Create a New Question
 
-1. Clique em **Criar**.
-2. Insira o **Texto da Pergunta**. Use o `LocaleSwitcher` para adicionar traduções em diferentes idiomas.
-3. Selecione o **Tipo de Pergunta**:
-   - **Texto**: O usuário fornecerá uma resposta em texto livre.
-   - **Escolha Única**: O usuário selecionará uma opção.
-   - **Escolha Múltipla**: O usuário poderá selecionar várias opções.
-4. Salve a pergunta.
+1. Click on **Create**.
+2. Enter the **Question Text**. Use the `LocaleSwitcher` to add translations in different languages.
+3. Select the **Question Type**:
+   - **Text**: The user will provide a free-text answer.
+   - **Single Choice**: The user will select one option.
+   - **Multiple Choice**: The user can select multiple options.
+4. Save the question.
 
-#### Gerenciar Opções
+#### Manage Options
 
-Para perguntas do tipo **Escolha Única** ou **Escolha Múltipla**:
+For **Single Choice** or **Multiple Choice** questions:
 
-1. Dentro da pergunta criada, acesse a aba **Opções**.
-2. Clique em **Criar** para adicionar uma nova opção.
-3. Insira o **Texto da Opção** e traduções, se aplicável.
-4. Opcionalmente, adicione uma **Mensagem Condicional** em Markdown. Esta mensagem será exibida ao usuário se esta opção for selecionada.
-5. Defina a **Próxima Pergunta**, se desejar controlar o fluxo com base na resposta do usuário.
-6. Salve a opção.
+1. Within the created question, access the **Options** tab.
+2. Click **Create** to add a new option.
+3. Enter the **Option Text** and translations, if applicable.
+4. Optionally, add a **Conditional Message** in Markdown. This message will be displayed to the user if this option is selected.
+5. Set the **Next Question** if you want to control the flow based on the user's response.
+6. Save the option.
 
-### Definindo Mensagens Condicionais
+### Defining Conditional Messages
 
-As mensagens condicionais estão associadas diretamente às opções. Ao adicionar uma mensagem condicional a uma opção, ela será exibida ao usuário quando essa opção for selecionada.
+Conditional messages are directly associated with options. When adding a conditional message to an option, it will be displayed to the user when that option is selected.
 
-### Controlando o Fluxo de Perguntas
+### Controlling the Question Flow
 
-Você pode definir a próxima pergunta que o usuário verá após selecionar uma determinada opção:
+You can define the next question the user will see after selecting a particular option:
 
-1. No formulário de criação ou edição da opção, selecione a **Próxima Pergunta** no campo correspondente.
-2. Se nenhuma próxima pergunta for definida, o sistema seguirá a ordem padrão.
+1. In the option creation or editing form, select the **Next Question** in the corresponding field.
+2. If no next question is defined, the system will follow the default order.
 
 ## API Endpoints
 
-### Enviar Resposta do Usuário
+### Submit User Response
 
 **URL:** `/api/onboarding/responses`
 
-**Método:** `POST`
+**Method:** `POST`
 
-**Parâmetros:**
+**Parameters:**
 
-- `question_id` (integer, obrigatório): ID da pergunta respondida.
-- `response_id` (integer, opcional): ID da opção selecionada (para perguntas de escolha).
-- `response` (string, opcional): Resposta do usuário (para perguntas de texto).
+- `question_id` (integer, required): ID of the answered question.
+- `response_id` (integer, optional): ID of the selected option (for choice questions).
+- `response` (string, optional): User's response (for text questions).
 
-**Exemplo de Requisição:**
+**Request Example:**
 
 ```json
 POST /api/onboarding/responses
@@ -135,80 +134,80 @@ Content-Type: application/json
 }
 ```
 
-**Exemplo de Resposta:**
+**Response Example:**
 
 ```json
 {
   "next_question": {
     "id": 2,
-    "text": "Qual é a sua idade?",
+    "text": "What is your age?",
     "type": "text",
     "options": []
   },
   "conditional_message": {
-    "message": "Obrigado por escolher esta opção. Aqui está uma mensagem personalizada."
+    "message": "Thank you for choosing this option. Here's a personalized message."
   }
 }
 ```
 
-### Obter Respostas do Usuário
+### Get User Responses
 
 **URL:** `/api/onboarding/user-responses`
 
-**Método:** `GET`
+**Method:** `GET`
 
-**Parâmetros:**
+**Parameters:**
 
-- `user_id` (integer, obrigatório): ID do usuário.
+- `user_id` (integer, required): User ID.
 
-**Exemplo de Requisição:**
+**Request Example:**
 
 ```
 GET /api/onboarding/user-responses?user_id=123
 ```
 
-**Exemplo de Resposta:**
+**Response Example:**
 
 ```json
 {
   "responses": [
     {
       "question_id": 1,
-      "question_text": "Qual é o seu nome?",
-      "response": "João",
+      "question_text": "What is your name?",
+      "response": "John",
       "response_id": null,
       "option_text": null
     },
     {
       "question_id": 2,
-      "question_text": "Qual é a sua cor favorita?",
+      "question_text": "What is your favorite color?",
       "response": null,
       "response_id": 5,
-      "option_text": "Azul"
+      "option_text": "Blue"
     }
-    // Outras respostas...
+    // Other responses...
   ]
 }
 ```
 
-## Exemplos de Uso
+## Usage Examples
 
-### Fluxo Básico de Onboarding
+### Basic Onboarding Flow
 
-1. O usuário inicia o processo de onboarding.
-2. A aplicação consome o endpoint para enviar as respostas do usuário.
-3. O backend retorna a próxima pergunta e quaisquer mensagens condicionais.
-4. O frontend exibe a pergunta e processa a resposta do usuário.
-5. O fluxo continua até que não haja mais perguntas.
+1. The user starts the onboarding process.
+2. The application consumes the endpoint to send the user's responses.
+3. The backend returns the next question and any conditional messages.
+4. The frontend displays the question and processes the user's response.
+5. The flow continues until there are no more questions.
 
-### Exibindo Mensagens Condicionais
+### Displaying Conditional Messages
 
-- Quando o usuário seleciona uma opção com uma mensagem condicional, essa mensagem é retornada na resposta da API e pode ser exibida imediatamente.
+- When the user selects an option with a conditional message, that message is returned in the API response and can be displayed immediately.
 
-### Controlando o Fluxo com Base nas Respostas
+### Controlling the Flow Based on Responses
 
-- Ao definir a **Próxima Pergunta** em uma opção, você pode direcionar o usuário para diferentes caminhos no fluxo de onboarding, criando experiências personalizadas.
+- By setting the **Next Question** on an option, you can direct the user to different paths in the onboarding flow, creating personalized experiences.
 
-## Licença
+## License
 
-O OnboardingPackage é licenciado sob a [MIT license](LICENSE.md).
+The OnboardingPackage is licensed under the [MIT license](LICENSE.md).

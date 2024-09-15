@@ -1,7 +1,7 @@
 {
   "name": "bambolee-digital/onboarding-package",
-  "description": "Pacote Laravel/FilamentPHP para gerenciar fluxos de onboarding personalizáveis",
-  "version": "1.0.0",
+  "description": "Laravel/FilamentPHP package for managing customizable onboarding flows",
+  "version": "1.0.1",
   "type": "library",
   "license": "MIT",
   "authors": [

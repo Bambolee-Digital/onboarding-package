@@ -22,29 +22,29 @@ class QuestionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-question-mark-circle';
 
-    protected static ?string $navigationLabel = 'Perguntas';
+    protected static ?string $navigationLabel = 'Questions';
 
-    protected static ?string $pluralModelLabel = 'Perguntas';
+    protected static ?string $pluralModelLabel = 'Questions';
 
-    protected static ?string $modelLabel = 'Pergunta';
+    protected static ?string $modelLabel = 'Question';
 
     public static function getTranslatableLocales(): array
     {
-        return ['en', 'pt']; // Defina os idiomas que deseja suportar
+        return config('onboarding.locales', ['en', 'es', 'pt']);
     }
 
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form->schema([
             TextInput::make('text')
-                ->label('Texto da Pergunta')
+                ->label('Question Text')
                 ->required(),
             Select::make('type')
-                ->label('Tipo de Pergunta')
+                ->label('Question Type')
                 ->options([
-                    'text' => 'Texto',
-                    'single_choice' => 'Escolha Única',
-                    'multiple_choice' => 'Escolha Múltipla',
+                    'text' => 'Text',
+                    'single_choice' => 'Single Choice',
+                    'multiple_choice' => 'Multiple Choice',
                 ])
                 ->required(),
             // Remova o Repeater de options, pois agora usamos o RelationManager
@@ -57,13 +57,13 @@ class QuestionResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('text')
-                    ->label('Texto')
+                    ->label('Question Text')
                     ->getStateUsing(fn ($record) => $record->getTranslation('text', app()->getLocale()))
                     ->limit(50)
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('type')
-                    ->label('Tipo')
+                    ->label('Question Type')
                     ->sortable()
                     ->searchable(),
             ])
