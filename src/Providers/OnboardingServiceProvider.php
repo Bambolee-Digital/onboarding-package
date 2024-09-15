@@ -28,5 +28,8 @@ class OnboardingServiceProvider extends ServiceProvider
 
         // Carregar views, caso tenha
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'onboarding-package');
+
+        // lang 
+        $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'onboarding-package');
     }
 }
