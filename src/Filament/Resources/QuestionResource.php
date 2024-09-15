@@ -31,7 +31,7 @@ class QuestionResource extends Resource
     public static function getTranslatableLocales(): array
     {
         return config('onboarding.locales', ['en', 'es', 'pt']);
-    }
+    } 
 
     public static function form(Forms\Form $form): Forms\Form
     {

@@ -9,4 +9,5 @@ return [
 
     // Configurações adicionais podem ser adicionadas aqui
     'locales' => ['en', 'es', 'pt'],
+    
 ];
