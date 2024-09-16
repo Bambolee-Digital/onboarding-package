@@ -26,9 +26,6 @@ class OnboardingServiceProvider extends ServiceProvider
         // Carregar rotas
         $this->loadRoutesFrom(__DIR__.'/../../routes/api.php');
 
-        // Carregar views, caso tenha
-        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'onboarding-package');
-
         // lang 
         $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'onboarding-package');
     }
